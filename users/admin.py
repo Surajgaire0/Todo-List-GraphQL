@@ -1,8 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.apps import apps
 from .models import CustomUser
 
 # Register your models here.
+
+app = apps.get_app_config('graphql_auth')
+for name, model in app.models.items():
+    admin.site.register(model)
 
 
 @admin.register(CustomUser)

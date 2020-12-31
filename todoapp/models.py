@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext as _
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 # Create your models here.
 
@@ -30,6 +31,13 @@ class Todo(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if self.is_completed and not self.completed_at:
+            self.completed_at = timezone.now()
+        elif not self.is_completed and self.completed_at:
+            self.completed_at = None
+        super(Todo, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = _('todo')

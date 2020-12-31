@@ -1,13 +1,14 @@
 import graphene
 from graphql_auth.schema import UserQuery, MeQuery
+from todoapp.schema import Query as TodoQuery, Mutation as TodoMutation
 from users.schema import AuthMutation
 
 
-class Query(UserQuery, MeQuery, graphene.ObjectType):
+class Query(TodoQuery, UserQuery, MeQuery, graphene.ObjectType):
     pass
 
 
-class Mutation(AuthMutation, graphene.ObjectType):
+class Mutation(TodoMutation, AuthMutation, graphene.ObjectType):
     pass
 
 

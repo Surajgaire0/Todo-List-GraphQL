@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from .views import PrivateGraphQLView
+from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('secret/', admin.site.urls),
+    path('graphql', csrf_exempt(PrivateGraphQLView.as_view(graphiql=True))),
 ]

@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext as _
-from django.contrib.auth.models import get_user_model
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 
@@ -18,7 +18,7 @@ class Todo(models.Model):
     title = models.CharField(_('title'), max_length=255)
     detail = models.TextField(_('detail'), blank=True, null=True)
     owner = models.ForeignKey(
-        _('owner'), to=get_user_model(), on_delete=models.CASCADE)
+        to=get_user_model(), on_delete=models.CASCADE, verbose_name=_('owner'))
     is_important = models.BooleanField(_('is_important'), default=False)
     is_completed = models.BooleanField(_('is_completed'), default=False)
     created_at = models.DateTimeField(_('created_at'), auto_now_add=True)
